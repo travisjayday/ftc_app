@@ -46,6 +46,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 import org.firstinspires.ftc.robotcore.internal.system.SystemProperties;
 
 
+
 /**
  * This file contains an minimal example of a Linear "OpMode". An OpMode is a 'program' that runs in either
  * the autonomous or the teleop period of an FTC match. The names of OpModes appear on the menu
@@ -106,8 +107,6 @@ public class AutonomousDrive17 extends LinearOpMode {
         clawLeft.setPosition(0.5);
         clawRight.setPosition(0.5);
     }
-
-
 
     @Override
     public void runOpMode() {
@@ -188,8 +187,8 @@ public class AutonomousDrive17 extends LinearOpMode {
             }
 
             // Send calculated power to wheels
-            leftDrive.setPower(ldrive);
-            rightDrive.setPower(rdrive);
+            //leftDrive.setPower(ldrive);
+            //rightDrive.setPower(rdrive);
 
             // send power to vertical drive
             verticalDrive.setPower(vdrive);
@@ -228,10 +227,11 @@ public class AutonomousDrive17 extends LinearOpMode {
 
     void Deliver1stGlyph()
     {
-        /*encoderDrive(DRIVE_SPEED,  48,  48, 3.0);  // S1: Forward 47 Inches with 5 Sec timeout
-        encoderDrive(TURN_SPEED,   12, -12, 2.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
-        encoderDrive(DRIVE_SPEED, 4, 4, 2.0);  // S3: Reverse 24 Inches with 4 Sec timeout
-       */ double startTime = System.currentTimeMillis();
+        encoderDrive(DRIVE_SPEED,  48,  48, 3.0);  // S1: Forward 47 Inches with 5 Sec timeout
+        game = Phase.KILL_JEWEL;
+        //encoderDrive(TURN_SPEED,   12, -12, 2.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
+        //encoderDrive(DRIVE_SPEED, 4, 4, 2.0);  // S3: Reverse 24 Inches with 4 Sec timeout
+       /* double startTime = System.currentTimeMillis();
         while (opModeIsActive() && (System.currentTimeMillis() - startTime < 250))
         {
             leftDrive.setPower(0.1);
@@ -306,7 +306,7 @@ public class AutonomousDrive17 extends LinearOpMode {
             leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-            //  sleep(250);   // optional pause after each move
+            sleep(250);   // optional pause after each move
         }
     }
 }
