@@ -132,6 +132,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
           android:orientation="vertical"
           />
 
+      <org.opencv.android.JavaCameraView
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:id="@+id/opencvCameraView"
+          android:visibility="visible"/>
+
       <!-- When visible, the error message will overlay and thus partially
            obscure part of the camera monitor. We make this trade off so as to
            allow for a bigger camera monitor view in the common case when the

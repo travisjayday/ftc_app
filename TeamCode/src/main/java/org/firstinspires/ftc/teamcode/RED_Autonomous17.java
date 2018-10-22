@@ -70,8 +70,8 @@ import org.opencv.android.*;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Autonomous17", group="2017")
-public class AutonomousDrive17 extends LinearOpMode {
+@Autonomous(name="RED_Autonomous17", group="2017")
+public class RED_Autonomous17 extends LinearOpMode {
 
     private static final boolean DEBUG = false;
     private static final boolean CONTROLLERS = false;
@@ -121,7 +121,7 @@ public class AutonomousDrive17 extends LinearOpMode {
     private Direction vumarkDir = Direction.UKNOWN;
     private double phaseStart = 0;
     private JewelDecider jewelDecider;
-    private boolean teamColorRed = false;
+    private boolean teamColorRed = true;
 
     // OrientationManager orientationManager;
     // OPENCV STUFF
@@ -223,11 +223,11 @@ public class AutonomousDrive17 extends LinearOpMode {
 
         waitForStart();
 
-      //  orientationManager.stopSensor();
+        //  orientationManager.stopSensor();
 
         telemetry.addData("Status", "Resetting Encoders");    //
         telemetry.update();
-        
+
         telemetry.update();
         game = Phase.SCAN_PICTOGRAPH;
         //game = Phase.DELIVER_1ST_GLYPH;
@@ -363,7 +363,7 @@ public class AutonomousDrive17 extends LinearOpMode {
 
     void Deliver1stGlyph()
     {
-         encoderDrive(1, 140, 140, 10);
+        encoderDrive(1, 140, 140, 10);
         //rotateLeft();
 /*
         leftDrive.setDirection(DcMotorSimple.Direction.FORWARD);

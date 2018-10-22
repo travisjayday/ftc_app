@@ -54,8 +54,8 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="RoboDrive17", group="2017")
-public class RoboDrive17 extends LinearOpMode {
+@TeleOp(name="SinglePlayer_RoboDrive17", group="2017")
+public class SinglePlayer_RoboDrive17 extends LinearOpMode {
 
     private static final boolean NO_SWITCHES = true;
     // Declare OpMode members.
@@ -79,6 +79,7 @@ public class RoboDrive17 extends LinearOpMode {
         // step (using the FTC Robot Controller app on the phone).
         leftDrive  = hardwareMap.get(DcMotor.class, "motorLeft");
         rightDrive = hardwareMap.get(DcMotor.class, "motorRight");
+
         verticalDrive = hardwareMap.get(DcMotor.class, "motorVertical");
         clawLeft = hardwareMap.get(Servo.class, "clawLeft");
         clawRight = hardwareMap.get(Servo.class, "clawRight");
@@ -122,7 +123,12 @@ public class RoboDrive17 extends LinearOpMode {
 
             // Gamepad2
             // slow down up
-            double vdrive = gamepad2.left_stick_y * 0.8;
+           // double vdrive = gamepad1.dpad_up? 0.7 : * 0.8;
+            double vdrive = 0;
+            if (gamepad1.dpad_up)
+                vdrive = .7;
+            else if (gamepad1.dpad_down)
+                vdrive = -.7;
 
             // reachedtop is true if top button is pressed
             boolean reachedTop = false;
@@ -146,12 +152,12 @@ public class RoboDrive17 extends LinearOpMode {
             else if (vdrive < 0 && !reachedTop)
                 verticalDrive.setPower(vdrive);
             else
-                 verticalDrive.setPower(0.0);
+                verticalDrive.setPower(0.0);
 
             /* HANDLE CLAWS */
 
             // range from 0.15 - 1.0
-            double openness = gamepad2.right_trigger + 0.15;
+            double openness = gamepad1.right_trigger + 0.15;
 
             double leftclaw = openness * 0.6;
             clawLeft.setPosition(leftclaw);

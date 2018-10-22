@@ -108,6 +108,9 @@ import org.firstinspires.ftc.robotcore.internal.ui.UILocation;
 import org.firstinspires.ftc.robotcore.internal.webserver.RobotControllerWebInfo;
 import org.firstinspires.ftc.robotcore.internal.webserver.WebServer;
 import org.firstinspires.inspection.RcInspectionActivity;
+import org.opencv.android.BaseLoaderCallback;
+import org.opencv.android.LoaderCallbackInterface;
+import org.opencv.android.OpenCVLoader;
 
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -154,6 +157,22 @@ public class FtcRobotControllerActivity extends Activity
   protected FtcEventLoop eventLoop;
   protected Queue<UsbDevice> receivedUsbAttachmentNotifications;
 
+  private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
+      @Override
+      public void onManagerConnected(int status) {
+          switch (status) {
+              case LoaderCallbackInterface.SUCCESS:
+              {
+                  //telementry.addData("OpenCV", "Loaded Successfully!");
+                  RobotLog.vv(TAG, "LOADED OPENCV SUCCESSFULLY!!!!!");
+              } break;
+              default:
+              {
+                  super.onManagerConnected(status);
+              } break;
+          }
+      }
+  };
   protected class RobotRestarter implements Restarter {
 
     public void requestRestart() {
@@ -346,6 +365,14 @@ public class FtcRobotControllerActivity extends Activity
   protected void onResume() {
     super.onResume();
     RobotLog.vv(TAG, "onResume()");
+
+      if (!OpenCVLoader.initDebug()) {
+          RobotLog.vv(TAG, "Internal OpenCV library not found. Using OpenCV Manager for initialization");
+          OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_3_0_0, this, mLoaderCallback);
+      } else {
+          RobotLog.vv(TAG, "OpenCV library found inside package. Using it!");
+          mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
+      }
   }
 
   @Override
